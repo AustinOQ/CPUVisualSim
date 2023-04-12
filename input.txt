@@ -1,0 +1,4 @@
+add r0, 7, r2
+sub r2, 1, r2
+mult r2 7 r0
+div 7 9 r4
