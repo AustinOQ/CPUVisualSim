@@ -3,7 +3,7 @@ def cmpl(fileName):
     file=open(fileName,'r')
     asm=file.readlines()
     for i in range(len(asm)):
-        asm[i]=[i, asm[i].replace("\n",'').split(" "), 0]
+        asm[i]=[i, asm[i].replace("\n",'').split(" ")]
     return(asm)
 
 
