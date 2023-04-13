@@ -2,3 +2,8 @@ add r0, 7, r2
 sub r2, 1, r2
 mult r2 7 r0
 div 7 9 r4
+branch 0==-3 7
+add 1 r1 r5
+out r5
+add r1 r3 r1
+sub 1 1 r1
