@@ -1,6 +1,20 @@
-To-Do:
-    Allow for a different branch predictor. 
-    Save what the bp predictedin the statequeue and compare it to 
-        the resolved value. 
+ Requirments:
+    python version 3.7+
+    tkinter
+ 
+ Description:
 
-   Comits to arch state should only happen at end of cycle. Currently, registers can be changes in exe phase. 
+     sim.py is driver.
+
+    Write an assemply program (to a .txt file) using the instructions below and watch it pass through a 4 stage execution pipeline (Fetch, Decode, Execute, commit/Store). 
+ 
+    Legal instructions-->
+            add  intReg1 intReg2 destinationReg
+            mult intReg1 intReg2 destinationReg
+            and  intReg1 intReg2 destinationReg
+            not  intReg1 destinationReg
+            store sourceReg destinationMemAddress
+            load sourceMemAddress destinationReg
+            branch condition newPC
+            out register
+            nop
