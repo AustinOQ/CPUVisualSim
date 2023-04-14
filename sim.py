@@ -11,7 +11,6 @@
 '''
 
 from cmpl import *
-from executionUnit import *
 from outFormatted import *
 from branchPredictor import *
 
@@ -212,5 +211,5 @@ def processing():
     #####OUTPUT TO FILE HERE#######
     outfile.write(output)
     outfile.close()
-    
+
 processing()
