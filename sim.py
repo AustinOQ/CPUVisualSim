@@ -29,6 +29,8 @@ def processing():
 
     clock=0
     pc=0 #points to next instruction to start.
+
+    #Architectural registers. 
     r0,r1,r2,r3,r4,r5,r6=0,0,0,0,0,0,0
 
     statequeue=[]#used to flash back to last known legal state. 
@@ -76,81 +78,6 @@ def processing():
             #this is where out command is executed.
             if(executeTemp[1][0]=='out'):
                 print(eval(executeTemp[1][1]))
-            elif(executeTemp[1][0]=='add'):
-                if(executeTemp[1][3]=='r0'):
-                    r0=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r1'):
-                    r1=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r2'):
-                    r2=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r3'):
-                    r3=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r4'):
-                    r4=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r5'):
-                    r5=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r6'):
-                    r6=eval(executeTemp[1][1])+eval(executeTemp[1][2])
-                else:
-                    print("Error durring additions at memory location:", executeTemp[0])
-                    quit()
-
-            elif(executeTemp[1][0]=='mult'):
-                if(executeTemp[1][3]=='r0'):
-                    r0=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r1'):
-                    r1=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r2'):
-                    r2=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r3'):
-                    r3=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r4'):
-                    r4=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r5'):
-                    r5=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r6'):
-                    r6=eval(executeTemp[1][1])*eval(executeTemp[1][2])
-                else:
-                    print("Error durring additions at memory location:", executeTemp[0])
-                    quit()
-
-            elif(executeTemp[1][0]=='and'):
-                if(executeTemp[1][3]=='r0'):
-                    r0=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r1'):
-                    r1=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r2'):
-                    r2=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r3'):
-                    r3=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r4'):
-                    r4=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r5'):
-                    r5=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                elif(executeTemp[1][3]=='r6'):
-                    r6=eval(executeTemp[1][1])^eval(executeTemp[1][2])
-                else:
-                    print("Error durring additions at memory location:", executeTemp[0])
-                    quit()
-
-            elif(executeTemp[1][0]=='not'):
-                if(executeTemp[1][2]=='r0'):
-                    r0=~eval(executeTemp[1][1])
-                elif(executeTemp[1][3]=='r1'):
-                    r1=~eval(executeTemp[1][1])
-                elif(executeTemp[1][3]=='r2'):
-                    r2=~eval(executeTemp[1][1])
-                elif(executeTemp[1][3]=='r3'):
-                    r3=~eval(executeTemp[1][1])
-                elif(executeTemp[1][3]=='r4'):
-                    r4=~eval(executeTemp[1][1])
-                elif(executeTemp[1][3]=='r5'):
-                    r5=~eval(executeTemp[1][1])
-                elif(executeTemp[1][3]=='r6'):
-                    r6=~eval(executeTemp[1][1])
-                else:
-                    print("Error durring additions at memory location:", executeTemp[0])
-                    quit()
         else:
             output+=",E,-,-"
 
@@ -175,26 +102,99 @@ def processing():
 
             elif(storeTemp[1][0]=='store'):
                 address=int(storeTemp[1][2])
-               
-                mem[address]=eval(executeTemp[1][1])
+                mem[address]=eval(storeTemp[1][1])
   
 
             elif(storeTemp[1][0]=='load'):
                 address=eval(storeTemp[1][1])
                 if(storeTemp[1][2]=='r0'):
                     r0=str(eval(mem[int(address)]))
-                elif(executeTemp[1][3]=='r1'):
+                elif(storeTemp[1][3]=='r1'):
                     r1=str(eval(mem[int(address)]))
-                elif(executeTemp[1][3]=='r2'):
+                elif(storeTemp[1][3]=='r2'):
                     r2=str(eval(mem[int(address)]))
-                elif(executeTemp[1][3]=='r3'):
+                elif(storeTemp[1][3]=='r3'):
                     r3=str(eval(mem[int(address)]))
-                elif(executeTemp[1][3]=='r4'):
+                elif(storeTemp[1][3]=='r4'):
                     r4=str(eval(mem[int(address)]))
-                elif(executeTemp[1][3]=='r5'):
+                elif(storeTemp[1][3]=='r5'):
                     r5=str(eval(mem[int(address)]))
-                elif(executeTemp[1][3]=='r6'):
+                elif(storeTemp[1][3]=='r6'):
                     r6=str(eval(mem[int(address)]))
+
+            elif(storeTemp[1][0]=='add'):
+                if(storeTemp[1][3]=='r0'):
+                    r0=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r1'):
+                    r1=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r2'):
+                    r2=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r3'):
+                    r3=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r4'):
+                    r4=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r5'):
+                    r5=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r6'):
+                    r6=eval(storeTemp[1][1])+eval(storeTemp[1][2])
+                else:
+                    print("Error durring additions at memory location:", storeTemp[0])
+                    quit()
+
+            elif(storeTemp[1][0]=='mult'):
+                if(storeTemp[1][3]=='r0'):
+                    r0=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r1'):
+                    r1=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r2'):
+                    r2=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r3'):
+                    r3=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r4'):
+                    r4=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r5'):
+                    r5=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r6'):
+                    r6=eval(storeTemp[1][1])*eval(storeTemp[1][2])
+                else:
+                    print("Error durring additions at memory location:", storeTemp[0])
+                    quit()
+
+            elif(storeTemp[1][0]=='and'):
+                if(storeTemp[1][3]=='r0'):
+                    r0=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r1'):
+                    r1=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r2'):
+                    r2=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r3'):
+                    r3=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r4'):
+                    r4=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r5'):
+                    r5=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                elif(storeTemp[1][3]=='r6'):
+                    r6=eval(storeTemp[1][1])^eval(storeTemp[1][2])
+                else:
+                    print("Error durring additions at memory location:", storeTemp[0])
+                    quit()
+
+            elif(storeTemp[1][0]=='not'):
+                if(storeTemp[1][2]=='r0'):
+                    r0=~eval(storeTemp[1][1])
+                elif(storeTemp[1][3]=='r1'):
+                    r1=~eval(storeTemp[1][1])
+                elif(storeTemp[1][3]=='r2'):
+                    r2=~eval(storeTemp[1][1])
+                elif(storeTemp[1][3]=='r3'):
+                    r3=~eval(storeTemp[1][1])
+                elif(storeTemp[1][3]=='r4'):
+                    r4=~eval(storeTemp[1][1])
+                elif(storeTemp[1][3]=='r5'):
+                    r5=~eval(storeTemp[1][1])
+                elif(storeTemp[1][3]=='r6'):
+                    r6=~eval(storeTemp[1][1])
+                
         else:
             output+=",S,-,-"   
                 
