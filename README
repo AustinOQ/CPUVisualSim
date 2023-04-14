@@ -6,7 +6,8 @@
 
      sim.py is driver.
 
-    Write an assemply program (to a .txt file) using the instructions below and watch it pass through a 4 stage execution pipeline (Fetch, Decode, Execute, commit/Store). 
+    Write an assemply program (to a .txt file) using the instructions below and watch it pass through a 4 stage 
+    execution pipeline (Fetch, Decode, Execute, commit/Store). 
  
     Legal instructions-->
             add  intReg1 intReg2 destinationReg
