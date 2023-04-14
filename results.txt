@@ -1,6 +1,9 @@
-clock, pc, instruction and arguments, register values
-
-0,0, fetch#add r1 1 r2, r1=0 r2=0 .....
-1,1, fetch subtract 7 11 r1# decode add r1 1 r2, r1=0 r2=0 .....
-2, 2, .....
-
+Clock, Fetch, instruction in fetch, address being fetched, Decode, instruction being decoded, address of instruction , Execute, instruction being executed, address, Save/Comit, instruction comiting to stata, address, r0,r1,r2,r3,r4,r5,r6
+0,F,add r1 1 r1 ,0,D,-,-,E,-,-,S,-,-,0,0,0,0,0,0,0
+1,F,mult r1 97 r1 ,1,D,add r1 1 r1 ,0,E,-,-,S,-,-,0,0,0,0,0,0,0
+2,F,store r1 18 ,2,D,mult r1 97 r1 ,1,E,add r1 1 r1 ,0,S,-,-,0,1,0,0,0,0,0
+3,F,add r2 r1 r3 ,3,D,store r1 18 ,2,E,mult r1 97 r1 ,1,S,add r1 1 r1 ,0,0,97,0,0,0,0,0
+4,F,sub 1 1 r5 ,4,D,add r2 r1 r3 ,3,E,store r1 18 ,2,S,mult r1 97 r1 ,1,0,97,0,0,0,0,0
+5,F,-,-,D,sub 1 1 r5 ,4,E,add r2 r1 r3 ,3,S,store r1 18 ,2,0,97,0,97,0,0,0
+6,F,-,-,D,-,-,E,sub 1 1 r5 ,4,S,add r2 r1 r3 ,3,0,97,0,97,0,0,0
+7,F,-,-,D,-,-,E,-,-,S,sub 1 1 r5 ,4,0,97,0,97,0,0,0

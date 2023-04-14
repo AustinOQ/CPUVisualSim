@@ -25,6 +25,9 @@ from branchPredictor import *
 #branch resolved in store phase
 #cpu is pipelined and forwarded.
 def processing():
+
+    outfile=open("results.txt",'w')
+
     clock=0
     pc=0 #points to next instruction to start.
     r0,r1,r2,r3,r4,r5,r6=0,0,0,0,0,0,0
@@ -39,31 +42,37 @@ def processing():
     
     fetch,decode,execute=None,None,None
     fetchTemp,decodeTemp,executeTemp,storeTemp=None,None,None,None
-
+    output='Clock, Fetch, instruction in fetch, address being fetched, Decode, instruction being decoded, address of instruction , Execute, instruction being executed, address, Save/Comit, instruction comiting to stata, address, r0,r1,r2,r3,r4,r5,r6\n'
     #START MAIN EVENT LOOP
     while(pc!=len(prog)+3 and pc!=9999):
 
-        output=''
+       
+        output+=str(clock)
 
         #fetch unit
         if(pc<len(prog)):
-            output+="fetch"+ mem[pc][1], "from memory location",pc,'.','At time:',clock,'#'
+            output+=",F,"+ format(mem[pc][1])+','+str(mem[pc][0])
+         
             fetchTemp=mem[pc]
+        else:
+            output+=",F,-,-"
+
             
 
         #decode unit
         if(fetch!=None and pc<len(prog)+1):
-            output+="decode",fetch[1], "from memory location",fetch[0],'.','At time:',clock
+            output+=",D,"+format(fetch[1])+","+str(fetch[0])
             decodeTemp=fetch
             #if this is a branch, save all running data in case mispredict. 
                 #running data is registers
             if(decodeTemp[1][0]=='branch'):
                 statequeue=statequeue+[[r0,r1,r2,r3,r4,r5,r6]]
-            
+        else:
+            output+=",D,-,-"
 
         #execute unit
         if(decode!=None and pc<len(prog)+2):
-            output+=("execute",decode[1], "from memory location",decode[0],'.','At time:',clock)
+            output+=",E,"+format(decode[1])+ ","+str(decode[0])
             executeTemp=decode
             #this is where out command is executed.
             if(executeTemp[1][0]=='out'):
@@ -143,11 +152,13 @@ def processing():
                 else:
                     print("Error durring additions at memory location:", executeTemp[0])
                     quit()
+        else:
+            output+=",E,-,-"
 
             
         #store unit
         if(execute!=None):
-            output+=("store",execute[1], "from memory location",execute[0],'.','At time:',clock)
+            output+=",S,"+format(execute[1])+","+str(execute[0])
             storeTemp=execute
             #if branch fails,
                 #delete all temp files, clear components, set pc to branch specified
@@ -165,9 +176,9 @@ def processing():
 
             elif(storeTemp[1][0]=='store'):
                 address=int(storeTemp[1][2])
-                print(address)
+               
                 mem[address]=eval(executeTemp[1][1])
-                print(mem[address])
+  
 
             elif(storeTemp[1][0]=='load'):
                 address=eval(storeTemp[1][1])
@@ -185,7 +196,8 @@ def processing():
                     r5=str(eval(mem[int(address)]))
                 elif(executeTemp[1][3]=='r6'):
                     r6=str(eval(mem[int(address)]))
-                
+        else:
+            output+=",S,-,-"   
                 
 
         
@@ -195,8 +207,10 @@ def processing():
         fetch=fetchTemp
         decode=decodeTemp
         execute=executeTemp
-        output+=('r0=',r0,', r1=',r1,', ,r2=',r2,', r3=',r3,', r4=',r4,', r5=',r5,', r6=',r6)
-
-        #####OUTPUT TO FILE HERE#######
-
+        output+=','+str(r0)+','+str(r1)+','+str(r2)+','+str(r3)+','+str(r4)+','+str(r5)+','+str(r6)+"\n"
+    print(output)
+    #####OUTPUT TO FILE HERE#######
+    outfile.write(output)
+    outfile.close()
+    
 processing()

@@ -1,5 +1,6 @@
 def format(arr):
-    str=''
+    string=''
     for i in arr:
-        str+=str[i]
-    return str
+        string+=str(i)+" "
+    #print(string)
+    return string

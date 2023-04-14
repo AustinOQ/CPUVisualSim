@@ -4,6 +4,7 @@ def cmpl(fileName):
     asm=file.readlines()
     for i in range(len(asm)):
         asm[i]=[i, asm[i].replace("\n",'').split(" ")]
+    file.close()
     return(asm)
 
 
