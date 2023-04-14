@@ -1,4 +1,5 @@
-add r0, 7, r2
-sub r2, 1, r2
-mult r2 7 r0
-div 7 9 r4
+add r1 1 r1
+mult r1 97 r1
+store r1 18
+add r2 r1 r3
+sub 1 1 r5
