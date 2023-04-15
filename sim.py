@@ -12,7 +12,6 @@
 
 from cmpl import *
 from outFormatted import *
-from branchPredictor import *
 
 #branch predictor says always taken.
 #no reordering.
@@ -26,6 +25,8 @@ from branchPredictor import *
 def processing():
 
     outfile=open("results.txt",'w')
+    memfile=open("memDump.txt",'w')
+    memDump=''
 
     clock=0
     pc=0 #points to next instruction to start.
@@ -36,9 +37,9 @@ def processing():
     statequeue=[]#used to flash back to last known legal state. 
    
     file=input("Enter assembly file name:")
-    #mem=[[address, [instruction], flag array]...]. flag=1 when execution is speculative.
+    #mem=[[address, [instruction]]...]. flag=1 when execution is speculative.
     prog=cmpl(file)
-    dataArea=[0]*(100-len(prog))
+    dataArea=[0]*(50-len(prog))
     mem=prog+dataArea
     
     fetch,decode,execute=None,None,None
@@ -207,9 +208,27 @@ def processing():
         decode=decodeTemp
         execute=executeTemp
         output+=','+str(r0)+','+str(r1)+','+str(r2)+','+str(r3)+','+str(r4)+','+str(r5)+','+str(r6)+"\n"
-    print(output)
+        #create line in memDump.txt
+       
+        for m in range(len(mem)):
+            if m==len(mem)-1:
+                if type(mem[m])==int:
+                    memDump+=str(mem[m])
+                else:
+                    memDump+=format(mem[m][1])
+            else:
+                if type(mem[m])==int:
+                    memDump+=str(mem[m])+','
+                else:
+                    memDump+=format(mem[m][1])+','
+
+        memDump+="\n"
+
+
     #####OUTPUT TO FILE HERE#######
     outfile.write(output)
     outfile.close()
+    memfile.write(memDump)
+    memfile.close()
 
 processing()
