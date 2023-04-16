@@ -3,3 +3,8 @@ mult r1 97 r1
 store r1 18
 add r2 r1 r3
 sub 1 1 r5
+add 11 18 r5
+add r1 r5 r3
+store r5 22
+sub r1 r2 r6
+add 1 r1 r1
