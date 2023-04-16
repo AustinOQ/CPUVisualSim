@@ -44,7 +44,7 @@ def processing():
     
     fetch,decode,execute=None,None,None
     fetchTemp,decodeTemp,executeTemp,storeTemp=None,None,None,None
-    output='Clock, Fetch, instruction in fetch, address being fetched, Decode, instruction being decoded, address of instruction , Execute, instruction being executed, address, Save/Comit, instruction comiting to stata, address, r0,r1,r2,r3,r4,r5,r6\n'
+    output=''
     #START MAIN EVENT LOOP
     while(pc!=len(prog)+3 and pc!=9999):
 
@@ -143,6 +143,7 @@ def processing():
                     quit()
 
             elif(storeTemp[1][0]=='mult'):
+                print(storeTemp[1][1],eval(storeTemp[1][1]), storeTemp[1][2],eval(storeTemp[1][2]))
                 if(storeTemp[1][3]=='r0'):
                     r0=eval(storeTemp[1][1])*eval(storeTemp[1][2])
                 elif(storeTemp[1][3]=='r1'):
