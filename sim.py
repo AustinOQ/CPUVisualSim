@@ -65,10 +65,7 @@ def processing():
         if(fetch!=None and pc<len(prog)+1):
             output+=",D,"+format(fetch[1])+","+str(fetch[0])
             decodeTemp=fetch
-            #if this is a branch, save all running data in case mispredict. 
-                #running data is registers
-            if(decodeTemp[1][0]=='branch'):
-                statequeue=statequeue+[[r0,r1,r2,r3,r4,r5,r6]]
+          
         else:
             output+=",D,-,-"
 
@@ -79,6 +76,13 @@ def processing():
             #this is where out command is executed.
             if(executeTemp[1][0]=='out'):
                 print(eval(executeTemp[1][1]))
+            
+              
+            #if this is a branch, save all running data in case mispredict. 
+                #running data is registers
+            if(executeTemp[1][0]=='branch'):
+                statequeue=statequeue+[[r0,r1,r2,r3,r4,r5,r6]]
+                #print(statequeue)
         else:
             output+=",E,-,-"
 
@@ -96,10 +100,11 @@ def processing():
                     #pop saved state since it wont be needed
                     statequeue=statequeue[1:]
                 else:
-                    #print("branch false, roleback starting.############")
-                    r0,r1,r2,r3,r4,r5,r6=statequeue[0][0],statequeue[0][1],statequeue[0][2],statequeue[0][3],statequeue[0][4],statequeue[0][5],statequeue[0][6]
+                    print("branch false, roleback starting.############")
+                    #r0,r1,r2,r3,r4,r5,r6=statequeue[0][0],statequeue[0][1],statequeue[0][2],statequeue[0][3],statequeue[0][4],statequeue[0][5],statequeue[0][6]
                     pc=eval(storeTemp[1][2])-1
-                    fetch,decode,execute=None,None,None
+                    fetch,decode,execute=[0,['-','-','-']],[0,['-','-','-']],[0,['-','-','-']]
+                    fetchTemp, decodeTemp, executeTemp=[0,['-','-','-']],[0,['-','-','-']],[0,['-','-','-']]
 
             elif(storeTemp[1][0]=='store'):
                 address=int(storeTemp[1][2])
@@ -143,7 +148,7 @@ def processing():
                     quit()
 
             elif(storeTemp[1][0]=='mult'):
-                print(storeTemp[1][1],eval(storeTemp[1][1]), storeTemp[1][2],eval(storeTemp[1][2]))
+                #print(storeTemp[1][1],eval(storeTemp[1][1]), storeTemp[1][2],eval(storeTemp[1][2]))
                 if(storeTemp[1][3]=='r0'):
                     r0=eval(storeTemp[1][1])*eval(storeTemp[1][2])
                 elif(storeTemp[1][3]=='r1'):
