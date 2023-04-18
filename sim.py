@@ -103,8 +103,8 @@ def processing():
                     print("branch false, roleback starting.############")
                     #r0,r1,r2,r3,r4,r5,r6=statequeue[0][0],statequeue[0][1],statequeue[0][2],statequeue[0][3],statequeue[0][4],statequeue[0][5],statequeue[0][6]
                     pc=eval(storeTemp[1][2])-1
-                    fetch,decode,execute=[0,['-','-','-']],[0,['-','-','-']],[0,['-','-','-']]
-                    fetchTemp, decodeTemp, executeTemp=[0,['-','-','-']],[0,['-','-','-']],[0,['-','-','-']]
+                    fetch,decode,execute=[0,['roleBack','-','-']],[0,['roleBack','-','-']],[0,['roleBack','-','-']]
+                    fetchTemp, decodeTemp, executeTemp=[0,['roleBack','-','-']],[0,['roleBack','-','-']],[0,['roleBack','-','-']]
 
             elif(storeTemp[1][0]=='store'):
                 address=int(storeTemp[1][2])

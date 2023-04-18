@@ -168,6 +168,19 @@ delMe=w.create_text(1800,720,text="r6", font=("times",20))
 start= Button(w, text= "Clock+=1", command= update)
 start.place(x=920,y=1010)
 
+    ###Draw arrows
+w.create_line(900,250,1000,250)
+w.create_line(990,260,1000,250)
+w.create_line(990,240,1000,250)
+
+w.create_line(1150,400,1150,500)
+w.create_line(1160,490,1150,500)
+w.create_line(1140,490,1150,500)
+
+w.create_line(1000,650,900,650)
+w.create_line(900,650,910,640)
+w.create_line(900,650,910,660)
+
 
 master.mainloop()
 
