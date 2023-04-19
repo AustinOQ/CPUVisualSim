@@ -17,7 +17,7 @@ master = Tk()
 w = Canvas(master, width=2000, height=1200)
 w.pack()
 clock=0
-clockTextUpdate=w.create_text(950,960,text=str(clock), font=("times",20))
+clockTextUpdate=w.create_text(950,970,text=str(clock), font=("times",20))
     #Open and load memory and state files.
 memory=open("memDump.txt",'r').readlines()
 state=open("results.txt",'r').readlines()
@@ -27,6 +27,7 @@ memory=Format(memory)
 state=Format(state)
 
     #make mem and state textboxes
+pcTextUpdate=w.create_text(950,870,text='', font=("times",20))
 memArr=[w.create_text(0,0,text='')]*len(memory[0])
 fetchTextUpdate=w.create_text(0,0,text='')
 decodeTextUpdate=w.create_text(0,0,text='')
@@ -43,6 +44,7 @@ r6TextUpdate=w.create_text(0,0,text='')
 
 def update():
     #globals to update
+    global pcTextUpdate
     global clock
     global clockTextUpdate
     global memArr
@@ -62,7 +64,7 @@ def update():
     
     #update memory
     w.delete(clockTextUpdate)
-    clockTextUpdate=w.create_text(950,960,text=str(clock), font=("times",20))
+    clockTextUpdate=w.create_text(950,970,text=str(clock), font=("times",20))
     MinY=110
     for i in range(len(memArr)):
         w.delete(memArr[i])
@@ -103,12 +105,15 @@ def update():
     w.delete(r6TextUpdate)
     r6TextUpdate=w.create_text(1800,750,text=state[clock][19], font=("times",20))
 
+    w.delete(pcTextUpdate)
+    pcTextUpdate=w.create_text(950,870,text=state[clock][3], font=("times",20))
+
     
     clock+=1
 
 
 
-    
+
     if clock>len(memory)-1:
         start["state"]="disabled"
     
@@ -145,8 +150,12 @@ mau=w.create_rectangle(600,500,900,800,fill="white",outline="black")
 mauText=w.create_text(750,600,text="Memory Access", font=("times",30))
 
     ###Draw Clock
-clk=w.create_rectangle(900, 900, 1000, 1000,fill="white",outline="black")
-clckText=w.create_text(950,920,text="Clock", font=("times",20))
+clk=w.create_rectangle(900, 910, 1000, 1010,fill="white",outline="black")
+clckText=w.create_text(950,930,text="Clock", font=("times",20))
+
+    ###Draw PC
+pc=w.create_rectangle(900, 810, 1000, 910,fill="white",outline="black")
+pcText=w.create_text(950,830,text="PC", font=("times",20))
         
     ###Draw register file
 w.create_rectangle(1700,100,1900,200,fill="white",outline="black")
@@ -166,7 +175,7 @@ delMe=w.create_text(1800,720,text="r6", font=("times",20))
    
     ###Make button
 start= Button(w, text= "Clock+=1", command= update)
-start.place(x=920,y=1010)
+start.place(x=920,y=1020)
 
     ###Draw arrows
 w.create_line(900,250,1000,250)
