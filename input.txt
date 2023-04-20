@@ -9,3 +9,4 @@ add 11 18 r5
 add r1 r5 r3
 store r5 22
 add 1 r1 r1
+mult r1 r1 r1
