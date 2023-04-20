@@ -13,6 +13,7 @@
 from cmpl import *
 from outFormatted import *
 
+
 #branch predictor says always taken.
 #no reordering.
 #no dependency handling. Leave that to the programmer.
@@ -36,7 +37,7 @@ def processing():
 
     statequeue=[]#used to flash back to last known legal state. 
    
-    file=input("Enter assembly file name:")
+    file="input.txt"
     #mem=[[address, [instruction]]...]. flag=1 when execution is speculative.
     prog=cmpl(file)
     dataArea=[0]*(50-len(prog))
@@ -95,7 +96,7 @@ def processing():
                 #delete all temp files, clear components, set pc to branch specified
                 #reload registers with saved data. 
             if(storeTemp[1][0]=='branch'):
-                if(eval(storeTemp[1][1])):
+                if( not eval(storeTemp[1][1])):
                     #print('branch true####################################')
                     #pop saved state since it wont be needed
                     statequeue=statequeue[1:]
@@ -237,4 +238,9 @@ def processing():
     memfile.write(memDump)
     memfile.close()
 
+
+   
+
+
 processing()
+from graphing import *

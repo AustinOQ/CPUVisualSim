@@ -1,6 +1,5 @@
 from tkinter import *
 import tkinter as ttk
-import time
 
 
    
@@ -173,7 +172,7 @@ w.create_text(1800,620,text="r5", font=("times",20))
 w.create_rectangle(1700,700,1900,800,fill="white",outline="black")
 delMe=w.create_text(1800,720,text="r6", font=("times",20))
    
-    ###Make button
+    ###Make button to increment state
 start= Button(w, text= "Clock+=1", command= update)
 start.place(x=920,y=1020)
 
@@ -192,6 +191,3 @@ w.create_line(900,650,910,660)
 
 
 master.mainloop()
-
-
-            
