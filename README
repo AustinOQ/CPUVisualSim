@@ -18,3 +18,4 @@
             branch condition newPC
             out register
             nop
+            Loop
